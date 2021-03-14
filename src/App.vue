@@ -1,16 +1,20 @@
 <template>
-    <div id="app">
-        {{ msg }}
-    </div>
+  <div id="app">
+    <navbar></navbar>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar';
+
 export default {
-    name: 'app',
-    data() {
-        return {
-            msg: 'Welcome to Your Vue.js App'
-        };
-    }
+  name: 'app',
+  components: {
+    Navbar
+  },
+  data() {
+    return {};
+  }
 };
 </script>
