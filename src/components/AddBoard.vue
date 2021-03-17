@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import Modal from './Modal.vue';
 
 export default {
@@ -41,9 +41,12 @@ export default {
     },
     methods: {
         ...mapMutations(['SET_IS_ADD_BOARD']),
+        ...mapActions(['ADD_BOARD', 'FETCH_BOARDS']),
         addBoard() {
             this.SET_IS_ADD_BOARD(false);
-            this.$emit('submit', this.input);
+            this.ADD_BOARD({ title: this.input }).then(() => {
+                this.FETCH_BOARDS();
+            });
         }
     }
 };
