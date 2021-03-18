@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { auth, setAuthInHeader } from '../api';
 
 export default {
@@ -37,11 +38,10 @@ export default {
         this.rPath = this.$route.query.rPath || '/';
     },
     methods: {
+        ...mapActions(['LOGIN']),
         onSubmit() {
-            auth.login(this.email, this.password)
+            this.LOGIN({ email: this.email, password: this.password })
                 .then(data => {
-                    localStorage.setItem('token', data.accessToken);
-                    setAuthInHeader(data.accessToken);
                     this.$router.push(this.rPath);
                 })
                 .catch(err => {
