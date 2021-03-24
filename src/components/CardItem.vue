@@ -1,13 +1,22 @@
 <template>
     <div class="card-item" :data-card-id="card.id" :data-card-pos="card.pos">
-        <div>{{ card.title }}</div>
-        <div class="card-item-meta" v-if="card.description">&equiv;</div>
+        <router-link :to="`/b/${boardId}/c/${card.id}`">
+            <div>{{ card.title }}</div>
+            <div class="card-item-meta" v-if="card.description">&equiv;</div>
+        </router-link>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-    props: ['card']
+    props: ['card'],
+    computed: {
+        ...mapState({
+            boardId: state => state.board.id
+        })
+    }
 };
 </script>
 
