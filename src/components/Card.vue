@@ -51,16 +51,29 @@ export default {
         ...mapState(['card'])
     },
     created() {
-        const id = this.$route.params.cid;
-        this.FETCH_CARD({ id });
+        this.fetchCard();
     },
     methods: {
-        ...mapActions(['FETCH_CARD']),
+        ...mapActions(['FETCH_CARD', 'UPDATE_CARD']),
         onClickClose() {
-            this.$router.push(`/board/${this.boardId}`);
+            this.$router.push(`/b/${this.boardId}`);
         },
-        onBlurInputDesc() {},
-        onBlurTitle() {}
+        fetchCard() {
+            const id = this.$route.params.cid;
+            this.FETCH_CARD({ id });
+        },
+        onBlurTitle() {
+            this.toggleTitle = false;
+            const title = this.$refs.inputTitle.value.trim();
+            if (!title) return;
+            this.UPDATE_CARD({ id: this.card.id, title }).then(() => this.fetchCard());
+        },
+        onBlurInputDesc() {
+            this.toggleDesc = false;
+            const description = this.$refs.inputDesc.value.trim();
+            if (!description) return;
+            this.UPDATE_CARD({ id: this.card.id, description }).then(() => this.fetchCard());
+        }
     }
 };
 </script>

@@ -31,7 +31,15 @@ export default {
         onSubmitNewCard() {
             if (this.invalidInput) return;
             const { inputCardTitle, listId } = this;
-            this.ADD_CARD({ title: inputCardTitle, listId }).finally(() => (this.inputCardTitle = ''));
+            const pos = this.newCardPos();
+            this.ADD_CARD({ title: inputCardTitle, listId, pos }).finally(() => (this.inputCardTitle = ''));
+        },
+        newCardPos() {
+            const curList = this.$store.state.board.lists.filter(l => l.id === this.listId)[0];
+            if (!curList) return 65535;
+            const { cards } = curList;
+            if (!cards.length) return 65535;
+            return cards[cards.length - 1].pos * 2;
         }
     }
 };
