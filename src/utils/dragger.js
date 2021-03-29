@@ -5,12 +5,12 @@ const dragger = {
     init(container) {
         return dragula([...container]);
     },
-    sibling({ el, wrapper, candidate, type }) {
+    sibling({ el, wrapper, candidates, type }) {
         const curId = el.dataset[type + 'Id'] * 1;
         let prev = null;
         let next = null;
 
-        candidate.forEach((el, idx, arr) => {
+        candidates.forEach((el, idx, arr) => {
             const id = el.dataset[type + 'Id'] * 1;
             if (id == curId) {
                 prev =

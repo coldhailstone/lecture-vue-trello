@@ -51,13 +51,13 @@ export default {
         },
         setCardDraggabble() {
             if (this.cDragger) this.cDragger.destroy();
-            this.cDragger = dragger.init(...Array.from(this.$el.querySelectorAll('.card-list')));
+            this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')));
             this.cDragger.on('drop', (el, wrapper, target, siblings) => {
                 const targetCard = {
                     id: el.dataset.cardId * 1,
                     pos: 65535
                 };
-                const { prev, next } = dragger.siblings({
+                const { prev, next } = dragger.sibling({
                     el,
                     wrapper,
                     candidates: Array.from(wrapper.querySelectorAll('.card-item')),
