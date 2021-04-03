@@ -11,17 +11,32 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
     computed: {
+        ...mapState(['navbarColor', 'bodyColor']),
         ...mapGetters(['isAuth'])
+    },
+    watch: {
+        bodyColor: 'updateTheme'
+    },
+    mounted() {
+        this.updateTheme();
     },
     methods: {
         ...mapActions(['LOGOUT']),
         logout() {
             this.LOGOUT();
             this.$router.push('/login');
+        },
+        updateTheme() {
+            this.$el.style.backgroundColor = this.navbarColor;
+
+            const body = document.querySelector('body');
+            const container = document.querySelector('.container');
+            if (body) body.style.backgroundColor = this.bodyColor;
+            if (container) container.style.backgroundColor = this.bodyColor;
         }
     }
 };

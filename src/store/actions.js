@@ -17,6 +17,9 @@ const actions = {
             commit('SET_BOARD', data.item);
         });
     },
+    DELETE_BOARD(_, { id }) {
+        return api.board.destroy(id);
+    },
     ADD_CARD({ state, dispatch }, { title, listId, pos }) {
         return api.card.create(title, listId, pos).then(() => dispatch('FETCH_BOARD', { id: state.board.id }));
     },
@@ -27,6 +30,9 @@ const actions = {
     },
     UPDATE_CARD({ state, dispatch }, { id, title, description, pos, listId }) {
         return api.card.update(id, { title, description, pos, listId }).then(() => dispatch('FETCH_BOARD', { id: state.board.id }));
+    },
+    DELETE_CARD({ state, dispatch }, { id }) {
+        return api.card.destroy(id).then(() => dispatch('FETCH_BOARD', { id: state.board.id }));
     }
 };
 
