@@ -29,7 +29,7 @@ export default {
         });
     },
     methods: {
-        ...mapMutations(['SET_IS_SHOW_BOARD_MENU']),
+        ...mapMutations(['SET_IS_SHOW_BOARD_MENU', 'SET_THEME']),
         ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),
         onClickClose() {
             this.SET_IS_SHOW_BOARD_MENU(false);
@@ -41,10 +41,7 @@ export default {
         onClickChangeColor(el) {
             const id = this.board.id;
             const bgColor = el.target.dataset.value;
-            this.UPDATE_BOARD({ id, bgColor }).then(_ => {
-                document.querySelector('body').style.backgroundColor = this.board.bgColor;
-                document.querySelector('.header').style.backgroundColor = 'rgba(0,0,0,.15)';
-            });
+            this.UPDATE_BOARD({ id, bgColor }).then(() => this.SET_THEME(bgColor));
         }
     }
 };

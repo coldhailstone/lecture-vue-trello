@@ -21,7 +21,7 @@ export default {
     methods: {
         ...mapActions(['DELETE_CARD']),
         onDelete() {
-            if (!window.confirm('Delete this card?')) return;
+            if (!confirm('Delete this card?')) return;
             this.DELETE_CARD({ id: this.card.id });
         }
     }
