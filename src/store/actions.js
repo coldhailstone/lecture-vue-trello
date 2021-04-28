@@ -5,7 +5,6 @@ const actions = {
     LOGIN({ commit }, { email, password }) {
         return api.auth.login(email, password).then(({ accessToken }) => commit('LOGIN', accessToken));
     },
-
     ADD_BOARD(_, { title }) {
         return api.board.create(title).then(data => data.item);
     },
